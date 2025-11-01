@@ -4,32 +4,7 @@
 
 視覺化水桶進度功能是 FillUp! 應用程式的核心視覺元件，透過直覺的水桶隱喻和流暢的動畫效果，將飲水追蹤轉化為引人入勝的互動體驗。設計重點在於提供即時視覺回饋、保持效能最佳化，並確保在各種裝置和主題下的一致性體驗。
 
-## 架構
-
-### 元件層次結構
-
-```
-BucketProgressContainer
-├── BucketVisualization
-│   ├── BucketSVG (靜態水桶外框)
-│   ├── WaterFill (動態水位填充)
-│   ├── ScaleMarkers (刻度標記)
-│   └── RippleEffect (水波紋動畫)
-├── ProgressIndicators
-│   ├── PercentageDisplay (百分比顯示)
-│   ├── VolumeDisplay (容量顯示)
-│   └── RemainingDisplay (剩餘量顯示)
-├── InteractionLayer
-│   ├── TapHandler (點擊處理)
-│   ├── SwipeHandler (滑動處理)
-│   └── DetailModal (詳細資訊彈窗)
-└── AnimationController
-    ├── FillAnimation (填充動畫)
-    ├── CelebrationAnimation (慶祝動畫)
-    └── ThemeTransition (主題轉換動畫)
-```
-
-### 狀態管理架構
+## 狀態管理架構
 
 ```typescript
 interface BucketProgressState {
