@@ -1,0 +1,16 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dropGradient16" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Water drop shape -->
+  <path d="M8 2C8 2 4 6 4 9C4 11.2091 5.79086 13 8 13C10.2091 13 12 11.2091 12 9C12 6 8 2 8 2Z" 
+        fill="url(#dropGradient16)"/>
+  
+  <!-- Highlight -->
+  <ellipse cx="7" cy="7" rx="1" ry="1.5" fill="rgba(255,255,255,0.4)"/>
+</svg>
