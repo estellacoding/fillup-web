@@ -1,0 +1,85 @@
+# === OS / Editor ===
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.history/
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# === Node / JS / TS ===
+node_modules/
+
+# Build outputs / caches
+dist/
+.next/
+out/
+.turbo/
+.nyc_output/
+coverage/
+.eslintcache
+.stylelintcache
+.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# === Env / Secrets (keep examples) ===
+.env
+.env.*
+!.env.example
+!.env.*.example
+# Next.js defaults（明確列出，便於辨識）
+.env.local
+.env.*.local
+
+# === Package managers ===
+.pnp.*
+.pnpm-store/
+
+# === Frontend tooling ===
+# Vite cache（通常在 node_modules/.vite，但補根目錄保險）
+.vite/
+# Storybook / Cypress / Playwright
+storybook-static/
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+playwright/.cache/
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+.venv/
+venv/
+env/
+pip-log.txt
+pip-delete-this-arg.txt
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# === Cloud / Deploy ===
+.vercel/
+.netlify/
+serverless/.serverless/
+.terraform/
+terraform.tfstate*
+terraform.tfstate.backup
