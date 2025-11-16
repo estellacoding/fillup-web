@@ -1,22 +1,22 @@
 {
   "mcpServers": {
     "awslabs.aws-documentation-mcp-server": {
+      "disabled": false,
       "command": "uvx",
       "args": ["--from", "awslabs.aws-documentation-mcp-server@latest", "awslabs.aws-documentation-mcp-server"],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR",
         "AWS_DOCUMENTATION_PARTITION": "aws"
       },
-      "disabled": false,
       "autoApprove": []
     },
     "awslabs.aws-diagram-mcp-server": {
+      "disabled": false,      
       "command": "uvx",
       "args": ["--from", "awslabs.aws-diagram-mcp-server", "awslabs.aws-diagram-mcp-server"],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
-      "disabled": false,
       "autoApprove": [
         "list_icons",
         "generate_diagram",
@@ -24,26 +24,28 @@
       ]
     },    
     "awslabs.cdk-mcp-server": {
+      "disabled": false,
       "command": "uvx",
       "args": ["--from", "awslabs.cdk-mcp-server@latest", "awslabs.cdk-mcp-server"],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
-      "disabled": false,
       "autoApprove": [
         "GetAwsSolutionsConstructPattern"
       ]
     },
     "chrome-devtools": {
+      "disabled": false,
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp@latest"]
     },
     "context7": {
+      "disabled": false,
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"],
       "env": {
         "CONTEXT7_API_KEY": "ctx7sk-4354f315-a058-413f-841e-da25a3d4b9aa"
       }
-    }
+    }  
   }
 }
