@@ -39,7 +39,7 @@
   - _需求: 2.1, 2.2, 2.3, 2.4, 2.5, 3.4, 5.3, 5.5, 6.5, 8.2_
 
 
-- [x] 4. 實作前端堆疊 (Frontend Stack)
+- [ ] 4. 實作前端堆疊 (Frontend Stack)
   - 建立 lib/frontend-stack.ts 檔案定義前端堆疊
   - 使用 aws-cloudfront-s3 Solutions Construct 建立 S3 Bucket 與 CloudFront Distribution
   - 配置 S3 Bucket 啟用版本控制、伺服器端加密 (SSE-S3)、封鎖公開存取
