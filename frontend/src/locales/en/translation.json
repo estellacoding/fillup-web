@@ -154,7 +154,7 @@
     },
     "operationCancelled": {
       "title": "Operation Cancelled",
-      "message": ""
+      "message": "The operation has been cancelled by the user."
     }
   }
 }

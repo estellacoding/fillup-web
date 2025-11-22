@@ -154,7 +154,7 @@
     },
     "operationCancelled": {
       "title": "操作已取消",
-      "message": ""
+      "message": "操作已被使用者取消。"
     }
   }
 }
