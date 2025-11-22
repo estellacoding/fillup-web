@@ -200,6 +200,131 @@ graph TB
 
 - [需求規格](/.kiro/specs/hydration-recording/requirements.md) - 詳細功能需求與驗收標準
 - [技術架構](/.kiro/steering/tech.md) - 技術選型與架構決策
+- [API 參考](#-api-參考) - 核心模組 API 文件
+
+## 📚 API 參考
+
+### 單位轉換模組 (`utils/units`)
+
+提供毫升 (ml) 和液體盎司 (oz) 之間的雙向轉換功能。
+
+#### 核心轉換函式
+
+##### `mlToOz(ml: number): number`
+
+將毫升轉換為液體盎司，結果四捨五入至小數點後 1 位。
+
+```typescript
+import { mlToOz } from '@/utils/units';
+
+mlToOz(250);  // 8.5
+mlToOz(500);  // 16.9
+mlToOz(0);    // 0
+mlToOz(-100); // 0 (負值視為無效)
+```
+
+##### `ozToMl(oz: number): number`
+
+將液體盎司轉換為毫升，結果四捨五入至整數。
+
+```typescript
+import { ozToMl } from '@/utils/units';
+
+ozToMl(8.5);  // 251
+ozToMl(16.9); // 500
+ozToMl(0);    // 0
+ozToMl(-10);  // 0 (負值視為無效)
+```
+
+#### 格式化與解析
+
+##### `formatVolume(value: number, unit: VolumeUnit): string`
+
+格式化容量值為顯示字串。ml 顯示整數，oz 顯示小數點後 1 位。
+
+```typescript
+import { formatVolume } from '@/utils/units';
+
+formatVolume(250, 'ml');    // "250"
+formatVolume(250.7, 'ml');  // "251"
+formatVolume(8.5, 'oz');    // "8.5"
+formatVolume(-100, 'ml');   // "0"
+```
+
+##### `parseVolume(value: string, unit: VolumeUnit): number`
+
+解析字串為容量數值，自動套用適當精度。
+
+```typescript
+import { parseVolume } from '@/utils/units';
+
+parseVolume('250', 'ml');     // 250
+parseVolume('250.7', 'ml');   // 251
+parseVolume('8.45', 'oz');    // 8.5
+parseVolume('abc', 'ml');     // 0 (無效輸入)
+```
+
+#### 輔助函式
+
+##### `getCommonVolumes(unit?: VolumeUnit): number[]`
+
+取得常用容量預設值陣列，用於快速輸入按鈕。
+
+```typescript
+import { getCommonVolumes } from '@/utils/units';
+
+getCommonVolumes('ml');  // [250, 350, 500, 750, 1000]
+getCommonVolumes('oz');  // [8.5, 11.8, 16.9, 25.4, 33.8]
+```
+
+##### `validateVolumeRange(volume: number, unit?: VolumeUnit): boolean`
+
+驗證容量值是否在有效範圍內 (1ml - 5000ml)。
+
+```typescript
+import { validateVolumeRange } from '@/utils/units';
+
+validateVolumeRange(250, 'ml');    // true
+validateVolumeRange(8.5, 'oz');    // true
+validateVolumeRange(0, 'ml');      // false
+validateVolumeRange(6000, 'ml');   // false
+```
+
+##### `getVolumeUnitLabel(unit: VolumeUnit): string`
+
+取得容量單位的中文標籤。
+
+```typescript
+import { getVolumeUnitLabel } from '@/utils/units';
+
+getVolumeUnitLabel('ml');  // "毫升"
+getVolumeUnitLabel('oz');  // "盎司"
+```
+
+#### 統一命名空間
+
+```typescript
+import { units } from '@/utils/units';
+
+// 透過 units 物件存取所有函式
+const oz = units.mlToOz(250);
+const ml = units.ozToMl(8.5);
+const display = units.formatVolume(250, 'ml');
+const value = units.parseVolume('8.5', 'oz');
+```
+
+#### 型別定義
+
+```typescript
+type VolumeUnit = 'ml' | 'oz';
+```
+
+#### 轉換係數
+
+- 1 oz = 29.5735 ml (US fluid ounce)
+- 1 ml = 0.033814 oz
+
+---
 
 ## 🤝 貢獻指南
 

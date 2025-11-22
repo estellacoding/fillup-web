@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Auto Documentation Generator",
+  "description": "Automatically generates comprehensive documentation for edited files including function/class signatures, parameters, return types, usage examples, and updates README.md with new exports following project standards",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "frontend/src/**/*.ts",
+      "frontend/src/**/*.tsx",
+      "backend/app/**/*.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Generate comprehensive documentation for the edited file:\n\n1. **Extract and Document Signatures**:\n   - Identify all exported functions, classes, interfaces, and types\n   - Document each with clear descriptions of purpose and behavior\n   - Include parameter types, names, and descriptions\n   - Document return types and what they represent\n   - Note any thrown errors or edge cases\n\n2. **Provide Usage Examples**:\n   - Create practical usage examples based on existing code patterns\n   - Show common use cases and integration patterns\n   - Include examples of error handling where applicable\n   - Reference related components or services\n\n3. **Update README.md**:\n   - Add or update entries for any new exports\n   - Maintain consistent formatting with existing documentation\n   - Include links to related documentation\n   - Update API reference sections if applicable\n\n4. **Follow Project Standards**:\n   - Use TypeScript best practices for frontend files\n   - Follow Python/FastAPI conventions for backend files\n   - Maintain consistency with existing documentation style\n   - Include JSDoc/docstring comments in the source code\n   - Ensure documentation is clear, concise, and actionable\n\n5. **Documentation Format**:\n   - Add inline comments for complex logic\n   - Use proper JSDoc format for TypeScript/React components\n   - Use Python docstrings (Google or NumPy style) for backend code\n   - Include type information and examples in comments\n   - Link to relevant external documentation when appropriate\n\nPlease generate the documentation and update both the source file with inline documentation and the README.md with any new exports or significant changes."
+  }
+}
