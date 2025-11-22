@@ -2,7 +2,7 @@
 
 ## 任務清單
 
-- [x] 1. 初始化 CDK 專案與基礎配置
+- [ ] 1. 初始化 CDK 專案與基礎配置
   - 使用 `cdk init app --language typescript` 建立 CDK 專案結構
   - 安裝必要的 CDK 套件與 AWS Solutions Constructs
   - 配置 cdk.json 包含多環境上下文參數 (dev/prod)
