@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Plus, Droplets } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface QuickInputButtonsProps {
   onVolumeSelect: (volume: number) => void;
@@ -13,6 +14,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
   isLoading,
   presetVolumes = [250, 350, 500]
 }) => {
+  const { t } = useTranslation();
   const [customVolume, setCustomVolume] = useState<string>('');
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [validationError, setValidationError] = useState<string>('');
@@ -28,15 +30,15 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
   const handleCustomSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     const volume = parseInt(customVolume);
-    
+
     // Validation
     if (isNaN(volume)) {
-      setValidationError('請輸入有效的數字');
+      setValidationError(t('validation.invalidNumber'));
       return;
     }
-    
+
     if (volume < 1 || volume > 5000) {
-      setValidationError('容量必須介於 1ml 至 5000ml 之間');
+      setValidationError(t('validation.volumeRange'));
       return;
     }
 
@@ -44,7 +46,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
     onVolumeSelect(volume);
     setCustomVolume('');
     setShowCustomInput(false);
-  }, [customVolume, onVolumeSelect]);
+  }, [customVolume, onVolumeSelect, t]);
 
   const handleCustomVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomVolume(e.target.value);
@@ -115,7 +117,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
       <motion.div variants={animationVariants.item}>
         <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
           <Droplets className="w-5 h-5 text-blue-500" />
-          快速記錄
+          {t('quickInput.title')}
         </h3>
         <div className="grid grid-cols-3 gap-3">
           {presetVolumes.map((volume) => (
@@ -180,7 +182,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
             <Plus className="w-5 h-5 text-green-500" />
-            自訂容量
+            {t('quickInput.customVolume')}
           </h3>
           <motion.button
             onClick={() => setShowCustomInput(!showCustomInput)}
@@ -188,7 +190,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {showCustomInput ? '收起' : '展開'}
+            {showCustomInput ? t('common.collapse') : t('common.expand')}
           </motion.button>
         </div>
 
@@ -208,7 +210,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
                       type="number"
                       value={customVolume}
                       onChange={handleCustomVolumeChange}
-                      placeholder="輸入容量 (1-5000ml)"
+                      placeholder={t('quickInput.placeholder')}
                       min="1"
                       max="5000"
                       className={`
@@ -251,7 +253,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
                     {isLoading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
                     ) : (
-                      '記錄'
+                      t('quickInput.record')
                     )}
                   </motion.button>
                 </div>
@@ -267,7 +269,7 @@ const QuickInputButtons: React.FC<QuickInputButtonsProps> = React.memo(({
         className="bg-blue-50 border border-blue-200 rounded-xl p-4"
       >
         <p className="text-sm text-blue-800">
-          💡 <strong>小提示：</strong>一般水杯約 250ml，保溫瓶約 350ml，大水瓶約 500ml
+          {t('quickInput.tip')}
         </p>
       </motion.div>
     </motion.div>

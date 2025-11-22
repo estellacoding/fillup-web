@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "language": "zh-TW",
+    "languageName": "繁體中文",
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-01"
+  },
+  "common": {
+    "appName": "FillUp!",
+    "appSlogan": "把水裝滿",
+    "online": "線上",
+    "offline": "離線",
+    "pendingSync": "待同步: {{count}}",
+    "loading": "載入中...",
+    "save": "儲存",
+    "cancel": "取消",
+    "delete": "刪除",
+    "edit": "編輯",
+    "retry": "重試",
+    "confirm": "確認",
+    "close": "關閉",
+    "expand": "展開",
+    "collapse": "收起",
+    "ml": "ml",
+    "volume": "容量",
+    "time": "時間",
+    "date": "日期"
+  },
+  "header": {
+    "networkStatus": {
+      "online": "線上",
+      "offline": "離線"
+    }
+  },
+  "home": {
+    "todayProgress": "今日進度",
+    "completionRate": "完成率",
+    "remaining": "剩餘",
+    "todayDrank": "今日已喝",
+    "dailyGoal": "每日目標",
+    "recordSuccess": "記錄成功！",
+    "goalReached": {
+      "title": "恭喜達標！",
+      "message": "今天的飲水目標已經完成，繼續保持健康習慣！"
+    },
+    "todayRecords": "今日記錄",
+    "recordCount": "{{count}} 筆記錄",
+    "partiallyUnsynced": "部分未同步",
+    "noRecords": {
+      "title": "尚無今日記錄",
+      "message": "開始記錄您的飲水量吧！"
+    },
+    "settingsHint": "點擊設定調整每日目標"
+  },
+  "quickInput": {
+    "title": "快速記錄",
+    "customVolume": "自訂容量",
+    "placeholder": "輸入容量 (1-5000ml)",
+    "record": "記錄",
+    "tip": "小提示：一般水杯約 250ml，保溫瓶約 350ml，大水瓶約 500ml"
+  },
+  "recordEditor": {
+    "title": "編輯記錄",
+    "subtitle": "修改飲水記錄的容量和時間",
+    "volumeLabel": "容量 (ml)",
+    "dateLabel": "日期",
+    "timeLabel": "時間",
+    "saving": "儲存中...",
+    "tip": "提示：修改記錄後，水桶進度會自動重新計算並更新顯示"
+  },
+  "recordList": {
+    "noRecords": {
+      "title": "尚無記錄",
+      "message": "開始記錄您的飲水量吧！"
+    },
+    "waitingSync": "等待同步到雲端",
+    "deleteConfirm": {
+      "title": "確認刪除",
+      "subtitle": "此操作無法復原",
+      "message": "確定要刪除這筆 {{volume}} 的記錄嗎？",
+      "deleting": "刪除中..."
+    }
+  },
+  "bucket": {
+    "goalAchieved": "目標達成！",
+    "target": "目標: {{amount}}ml",
+    "todayGoalAchieved": "今日目標已達成！"
+  },
+  "validation": {
+    "invalidNumber": "請輸入有效的數字",
+    "volumeRange": "容量必須介於 1ml 至 5000ml 之間",
+    "selectDate": "請選擇日期",
+    "futureDate": "不能選擇未來的日期",
+    "dateLimit": "日期不能超過一年前",
+    "selectTime": "請選擇時間",
+    "futureTime": "時間不能是未來時間"
+  },
+  "errors": {
+    "networkUnavailable": {
+      "title": "網路連線問題",
+      "message": "目前無法連接到網路，您的記錄將暫時儲存在本地，待網路恢復後自動同步。"
+    },
+    "networkTimeout": {
+      "title": "連線逾時",
+      "message": "網路回應時間過長，請檢查您的網路連線狀況。"
+    },
+    "serverError": {
+      "title": "伺服器錯誤",
+      "message": "伺服器暫時無法處理您的請求，請稍後再試。"
+    },
+    "apiError": {
+      "title": "服務錯誤",
+      "message": "服務暫時不可用，您的資料已安全儲存在本地。"
+    },
+    "invalidVolume": {
+      "title": "輸入錯誤",
+      "message": "請輸入有效的飲水量（1-5000ml）。"
+    },
+    "invalidTimestamp": {
+      "title": "時間錯誤",
+      "message": "請選擇有效的時間。"
+    },
+    "validationFailed": {
+      "title": "資料驗證失敗",
+      "message": "輸入的資料格式不正確，請檢查後重新輸入。"
+    },
+    "storageFull": {
+      "title": "儲存空間不足",
+      "message": "本地儲存空間已滿，請清理一些舊資料或聯繫技術支援。"
+    },
+    "storageError": {
+      "title": "儲存錯誤",
+      "message": "無法儲存資料到本地，請重新嘗試。"
+    },
+    "indexedDBError": {
+      "title": "本地資料庫錯誤",
+      "message": "本地資料庫發生問題，可能需要重新整理頁面。"
+    },
+    "syncFailed": {
+      "title": "同步失敗",
+      "message": "無法同步您的資料，將在網路恢復後自動重試。"
+    },
+    "conflictResolution": {
+      "title": "資料衝突",
+      "message": "發現資料衝突，已自動選擇最新的記錄。"
+    },
+    "retryExhausted": {
+      "title": "重試次數已達上限",
+      "message": "操作重試次數已達上限，請檢查網路連線後手動重試。"
+    },
+    "unknownError": {
+      "title": "未知錯誤",
+      "message": "發生未預期的錯誤，請重新嘗試或聯繫技術支援。"
+    },
+    "operationCancelled": {
+      "title": "操作已取消",
+      "message": "操作已被使用者取消。"
+    }
+  }
+}

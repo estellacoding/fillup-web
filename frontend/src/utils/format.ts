@@ -5,14 +5,10 @@ import { VolumeUnit, convertVolume } from './units';
 
 export const formatVolume = (volume: number, unit: VolumeUnit = 'ml'): string => {
   const displayVolume = convertVolume(volume, 'ml', unit);
-  
+
   switch (unit) {
-    case 'l':
-      return `${displayVolume}L`;
     case 'oz':
       return `${displayVolume} oz`;
-    case 'cup':
-      return `${displayVolume} cup`;
     default:
       return `${displayVolume}ml`;
   }

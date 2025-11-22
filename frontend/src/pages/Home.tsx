@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Wifi, WifiOff, Settings, TrendingUp, Calendar, History, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import BucketVisualizer from '../components/BucketVisualizer';
 import QuickInputButtons from '../components/QuickInputButtons';
 import RecordList from '../components/RecordList';
 import RecordEditor from '../components/RecordEditor';
+import LanguageSelector from '../components/LanguageSelector';
 import { useHydrationStore } from '../store/useHydrationStore';
 import { HydrationRecord } from '../types';
 import { isToday } from '../utils/time';
 
 const Home: React.FC = React.memo(() => {
+  const { t, i18n } = useTranslation();
   const {
     dailyIntake,
     dailyGoal,
@@ -153,33 +156,36 @@ const Home: React.FC = React.memo(() => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 flex items-center justify-center">
-                <img 
-                  src="/favicon.svg" 
-                  alt="FillUp! Logo" 
+                <img
+                  src="/favicon.svg"
+                  alt="FillUp! Logo"
                   className="w-10 h-10"
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-800">FillUp!</h1>
-                <p className="text-sm text-gray-600">把水裝滿</p>
+                <h1 className="text-xl font-bold text-gray-800">{t('common.appName')}</h1>
+                <p className="text-sm text-gray-600">{t('common.appSlogan')}</p>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-3">
+              {/* Language Selector */}
+              <LanguageSelector />
+
               {/* Network status indicator */}
               <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                isOffline 
-                  ? 'bg-red-100 text-red-700' 
+                isOffline
+                  ? 'bg-red-100 text-red-700'
                   : 'bg-green-100 text-green-700'
               }`}>
                 {isOffline ? <WifiOff className="w-3 h-3" /> : <Wifi className="w-3 h-3" />}
-                {isOffline ? '離線' : '線上'}
+                {isOffline ? t('common.offline') : t('common.online')}
               </div>
-              
+
               {/* Sync status */}
               {syncStatus.pendingCount > 0 && (
                 <div className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">
-                  待同步: {syncStatus.pendingCount}
+                  {t('common.pendingSync', { count: syncStatus.pendingCount })}
                 </div>
               )}
             </div>
@@ -206,7 +212,7 @@ const Home: React.FC = React.memo(() => {
               transition={{ duration: 0.3 }}
             >
               <div className="bg-green-500 text-white px-6 py-3 rounded-full shadow-lg font-medium">
-                ✅ 記錄成功！
+                {t('home.recordSuccess')}
               </div>
             </motion.div>
           )}
@@ -220,10 +226,10 @@ const Home: React.FC = React.memo(() => {
           >
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-blue-100 w-full max-w-md">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">今日進度</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('home.todayProgress')}</h2>
                 <p className="text-gray-600">
-                  {new Date().toLocaleDateString('zh-TW', { 
-                    month: 'long', 
+                  {new Date().toLocaleDateString(i18n.language, {
+                    month: 'long',
                     day: 'numeric',
                     weekday: 'long'
                   })}
@@ -243,13 +249,13 @@ const Home: React.FC = React.memo(() => {
                   <div className="text-2xl font-bold text-blue-600">
                     {Math.round(completionPercentage)}%
                   </div>
-                  <div className="text-xs text-blue-600 font-medium">完成率</div>
+                  <div className="text-xs text-blue-600 font-medium">{t('home.completionRate')}</div>
                 </div>
                 <div className="bg-purple-50 rounded-xl p-3 text-center">
                   <div className="text-2xl font-bold text-purple-600">
-                    {remainingAmount.toLocaleString()}
+                    {remainingAmount.toLocaleString(i18n.language)}
                   </div>
-                  <div className="text-xs text-purple-600 font-medium">剩餘 ml</div>
+                  <div className="text-xs text-purple-600 font-medium">{t('home.remaining')} {t('common.ml')}</div>
                 </div>
               </div>
             </div>
@@ -280,9 +286,9 @@ const Home: React.FC = React.memo(() => {
                   </div>
                   <div>
                     <div className="text-lg font-bold text-gray-800">
-                      {dailyIntake.toLocaleString()}
+                      {dailyIntake.toLocaleString(i18n.language)}
                     </div>
-                    <div className="text-xs text-gray-600">今日已喝</div>
+                    <div className="text-xs text-gray-600">{t('home.todayDrank')}</div>
                   </div>
                 </div>
               </motion.div>
@@ -298,9 +304,9 @@ const Home: React.FC = React.memo(() => {
                   </div>
                   <div>
                     <div className="text-lg font-bold text-gray-800">
-                      {dailyGoal.toLocaleString()}
+                      {dailyGoal.toLocaleString(i18n.language)}
                     </div>
-                    <div className="text-xs text-gray-600">每日目標</div>
+                    <div className="text-xs text-gray-600">{t('home.dailyGoal')}</div>
                   </div>
                 </div>
               </motion.div>
@@ -317,9 +323,9 @@ const Home: React.FC = React.memo(() => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="text-4xl mb-2">🎉</div>
-                  <h3 className="text-xl font-bold mb-1">恭喜達標！</h3>
+                  <h3 className="text-xl font-bold mb-1">{t('home.goalReached.title')}</h3>
                   <p className="text-sm opacity-90">
-                    今天的飲水目標已經完成，繼續保持健康習慣！
+                    {t('home.goalReached.message')}
                   </p>
                 </motion.div>
               )}
@@ -344,11 +350,11 @@ const Home: React.FC = React.memo(() => {
                     <History className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">今日記錄</h3>
+                    <h3 className="text-lg font-semibold text-gray-800">{t('home.todayRecords')}</h3>
                     <p className="text-sm text-gray-600">
-                      {todayRecords.length} 筆記錄
+                      {t('home.recordCount', { count: todayRecords.length })}
                       {todayRecords.some(r => !r.synced) && (
-                        <span className="ml-2 text-orange-600">• 部分未同步</span>
+                        <span className="ml-2 text-orange-600">• {t('home.partiallyUnsynced')}</span>
                       )}
                     </p>
                   </div>
@@ -386,8 +392,8 @@ const Home: React.FC = React.memo(() => {
                         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                           <History className="w-8 h-8 text-gray-400" />
                         </div>
-                        <h4 className="text-lg font-medium text-gray-900 mb-2">尚無今日記錄</h4>
-                        <p className="text-gray-500">開始記錄您的飲水量吧！</p>
+                        <h4 className="text-lg font-medium text-gray-900 mb-2">{t('home.noRecords.title')}</h4>
+                        <p className="text-gray-500">{t('home.noRecords.message')}</p>
                       </div>
                     )}
                   </div>
@@ -404,7 +410,7 @@ const Home: React.FC = React.memo(() => {
         >
           <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 text-sm text-gray-600">
             <Settings className="w-4 h-4" />
-            <span>點擊設定調整每日目標</span>
+            <span>{t('home.settingsHint')}</span>
           </div>
         </motion.div>
       </motion.main>

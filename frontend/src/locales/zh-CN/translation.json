@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "language": "zh-CN",
+    "languageName": "简体中文",
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-01"
+  },
+  "common": {
+    "appName": "FillUp!",
+    "appSlogan": "把水装满",
+    "online": "在线",
+    "offline": "离线",
+    "pendingSync": "待同步: {{count}}",
+    "loading": "加载中...",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "retry": "重试",
+    "confirm": "确认",
+    "close": "关闭",
+    "expand": "展开",
+    "collapse": "收起",
+    "ml": "ml",
+    "volume": "容量",
+    "time": "时间",
+    "date": "日期"
+  },
+  "header": {
+    "networkStatus": {
+      "online": "在线",
+      "offline": "离线"
+    }
+  },
+  "home": {
+    "todayProgress": "今日进度",
+    "completionRate": "完成率",
+    "remaining": "剩余",
+    "todayDrank": "今日已喝",
+    "dailyGoal": "每日目标",
+    "recordSuccess": "记录成功！",
+    "goalReached": {
+      "title": "恭喜达标！",
+      "message": "今天的饮水目标已经完成，继续保持健康习惯！"
+    },
+    "todayRecords": "今日记录",
+    "recordCount": "{{count}} 条记录",
+    "partiallyUnsynced": "部分未同步",
+    "noRecords": {
+      "title": "暂无今日记录",
+      "message": "开始记录您的饮水量吧！"
+    },
+    "settingsHint": "点击设置调整每日目标"
+  },
+  "quickInput": {
+    "title": "快速记录",
+    "customVolume": "自定义容量",
+    "placeholder": "输入容量 (1-5000ml)",
+    "record": "记录",
+    "tip": "小提示：一般水杯约 250ml，保温杯约 350ml，大水瓶约 500ml"
+  },
+  "recordEditor": {
+    "title": "编辑记录",
+    "subtitle": "修改饮水记录的容量和时间",
+    "volumeLabel": "容量 (ml)",
+    "dateLabel": "日期",
+    "timeLabel": "时间",
+    "saving": "保存中...",
+    "tip": "提示：修改记录后，水桶进度会自动重新计算并更新显示"
+  },
+  "recordList": {
+    "noRecords": {
+      "title": "暂无记录",
+      "message": "开始记录您的饮水量吧！"
+    },
+    "waitingSync": "等待同步到云端",
+    "deleteConfirm": {
+      "title": "确认删除",
+      "subtitle": "此操作无法恢复",
+      "message": "确定要删除这条 {{volume}} 的记录吗？",
+      "deleting": "删除中..."
+    }
+  },
+  "bucket": {
+    "goalAchieved": "目标达成！",
+    "target": "目标: {{amount}}ml",
+    "todayGoalAchieved": "今日目标已达成！"
+  },
+  "validation": {
+    "invalidNumber": "请输入有效的数字",
+    "volumeRange": "容量必须在 1ml 至 5000ml 之间",
+    "selectDate": "请选择日期",
+    "futureDate": "不能选择未来的日期",
+    "dateLimit": "日期不能超过一年前",
+    "selectTime": "请选择时间",
+    "futureTime": "时间不能是未来时间"
+  },
+  "errors": {
+    "networkUnavailable": {
+      "title": "网络连接问题",
+      "message": "目前无法连接到网络，您的记录将暂时保存在本地，待网络恢复后自动同步。"
+    },
+    "networkTimeout": {
+      "title": "连接超时",
+      "message": "网络响应时间过长，请检查您的网络连接状况。"
+    },
+    "serverError": {
+      "title": "服务器错误",
+      "message": "服务器暂时无法处理您的请求，请稍后再试。"
+    },
+    "apiError": {
+      "title": "服务错误",
+      "message": "服务暂时不可用，您的数据已安全保存在本地。"
+    },
+    "invalidVolume": {
+      "title": "输入错误",
+      "message": "请输入有效的饮水量（1-5000ml）。"
+    },
+    "invalidTimestamp": {
+      "title": "时间错误",
+      "message": "请选择有效的时间。"
+    },
+    "validationFailed": {
+      "title": "数据验证失败",
+      "message": "输入的数据格式不正确，请检查后重新输入。"
+    },
+    "storageFull": {
+      "title": "存储空间不足",
+      "message": "本地存储空间已满，请清理一些旧数据或联系技术支持。"
+    },
+    "storageError": {
+      "title": "存储错误",
+      "message": "无法保存数据到本地，请重新尝试。"
+    },
+    "indexedDBError": {
+      "title": "本地数据库错误",
+      "message": "本地数据库发生问题，可能需要刷新页面。"
+    },
+    "syncFailed": {
+      "title": "同步失败",
+      "message": "无法同步您的数据，将在网络恢复后自动重试。"
+    },
+    "conflictResolution": {
+      "title": "数据冲突",
+      "message": "发现数据冲突，已自动选择最新的记录。"
+    },
+    "retryExhausted": {
+      "title": "重试次数已达上限",
+      "message": "操作重试次数已达上限，请检查网络连接后手动重试。"
+    },
+    "unknownError": {
+      "title": "未知错误",
+      "message": "发生未预期的错误，请重新尝试或联系技术支持。"
+    },
+    "operationCancelled": {
+      "title": "操作已取消",
+      "message": "操作已被用户取消。"
+    }
+  }
+}

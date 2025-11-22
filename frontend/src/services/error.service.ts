@@ -1,7 +1,11 @@
 /**
- * 錯誤處理與使用者回饋服務
- * 實作需求 1.4, 4.5 - 錯誤處理與使用者友善的錯誤訊息
+ * Error handling and user feedback service
+ * Implementation for requirements 1.4, 4.5 - Error handling with user-friendly messages
+ *
+ * Internationalization: This service uses i18n translation keys
  */
+
+import i18n from '../locales/i18n';
 
 export interface ErrorInfo {
   code: string;
@@ -27,111 +31,121 @@ export interface UserFeedback {
   }>;
 }
 
-// 錯誤代碼定義
+// Error code definitions
 export const ERROR_CODES = {
-  // 網路錯誤
+  // Network errors
   NETWORK_UNAVAILABLE: 'NETWORK_UNAVAILABLE',
   NETWORK_TIMEOUT: 'NETWORK_TIMEOUT',
   SERVER_ERROR: 'SERVER_ERROR',
   API_ERROR: 'API_ERROR',
-  
-  // 驗證錯誤
+
+  // Validation errors
   INVALID_VOLUME: 'INVALID_VOLUME',
   INVALID_TIMESTAMP: 'INVALID_TIMESTAMP',
   VALIDATION_FAILED: 'VALIDATION_FAILED',
-  
-  // 儲存錯誤
+
+  // Storage errors
   STORAGE_FULL: 'STORAGE_FULL',
   STORAGE_ERROR: 'STORAGE_ERROR',
   INDEXEDDB_ERROR: 'INDEXEDDB_ERROR',
-  
-  // 同步錯誤
+
+  // Sync errors
   SYNC_FAILED: 'SYNC_FAILED',
   CONFLICT_RESOLUTION_FAILED: 'CONFLICT_RESOLUTION_FAILED',
   RETRY_EXHAUSTED: 'RETRY_EXHAUSTED',
-  
-  // 一般錯誤
+
+  // General errors
   UNKNOWN_ERROR: 'UNKNOWN_ERROR',
   OPERATION_CANCELLED: 'OPERATION_CANCELLED'
 } as const;
 
-// 使用者友善的錯誤訊息映射
-const ERROR_MESSAGES: Record<string, { title: string; message: string; severity: ErrorInfo['severity'] }> = {
+// Error code to i18n key mapping
+const ERROR_I18N_KEYS: Record<string, { titleKey: string; messageKey: string; severity: ErrorInfo['severity'] }> = {
   [ERROR_CODES.NETWORK_UNAVAILABLE]: {
-    title: '網路連線問題',
-    message: '目前無法連接到網路，您的記錄將暫時儲存在本地，待網路恢復後自動同步。',
+    titleKey: 'errors.networkUnavailable.title',
+    messageKey: 'errors.networkUnavailable.message',
     severity: 'medium'
   },
   [ERROR_CODES.NETWORK_TIMEOUT]: {
-    title: '連線逾時',
-    message: '網路回應時間過長，請檢查您的網路連線狀況。',
+    titleKey: 'errors.networkTimeout.title',
+    messageKey: 'errors.networkTimeout.message',
     severity: 'medium'
   },
   [ERROR_CODES.SERVER_ERROR]: {
-    title: '伺服器錯誤',
-    message: '伺服器暫時無法處理您的請求，請稍後再試。',
+    titleKey: 'errors.serverError.title',
+    messageKey: 'errors.serverError.message',
     severity: 'high'
   },
   [ERROR_CODES.API_ERROR]: {
-    title: '服務錯誤',
-    message: '服務暫時不可用，您的資料已安全儲存在本地。',
+    titleKey: 'errors.apiError.title',
+    messageKey: 'errors.apiError.message',
     severity: 'medium'
   },
   [ERROR_CODES.INVALID_VOLUME]: {
-    title: '輸入錯誤',
-    message: '請輸入有效的飲水量（1-5000ml）。',
+    titleKey: 'errors.invalidVolume.title',
+    messageKey: 'errors.invalidVolume.message',
     severity: 'low'
   },
   [ERROR_CODES.INVALID_TIMESTAMP]: {
-    title: '時間錯誤',
-    message: '請選擇有效的時間。',
+    titleKey: 'errors.invalidTimestamp.title',
+    messageKey: 'errors.invalidTimestamp.message',
     severity: 'low'
   },
   [ERROR_CODES.VALIDATION_FAILED]: {
-    title: '資料驗證失敗',
-    message: '輸入的資料格式不正確，請檢查後重新輸入。',
+    titleKey: 'errors.validationFailed.title',
+    messageKey: 'errors.validationFailed.message',
     severity: 'low'
   },
   [ERROR_CODES.STORAGE_FULL]: {
-    title: '儲存空間不足',
-    message: '本地儲存空間已滿，請清理一些舊資料或聯繫技術支援。',
+    titleKey: 'errors.storageFull.title',
+    messageKey: 'errors.storageFull.message',
     severity: 'high'
   },
   [ERROR_CODES.STORAGE_ERROR]: {
-    title: '儲存錯誤',
-    message: '無法儲存資料到本地，請重新嘗試。',
+    titleKey: 'errors.storageError.title',
+    messageKey: 'errors.storageError.message',
     severity: 'medium'
   },
   [ERROR_CODES.INDEXEDDB_ERROR]: {
-    title: '本地資料庫錯誤',
-    message: '本地資料庫發生問題，可能需要重新整理頁面。',
+    titleKey: 'errors.indexedDBError.title',
+    messageKey: 'errors.indexedDBError.message',
     severity: 'high'
   },
   [ERROR_CODES.SYNC_FAILED]: {
-    title: '同步失敗',
-    message: '無法同步您的資料，將在網路恢復後自動重試。',
+    titleKey: 'errors.syncFailed.title',
+    messageKey: 'errors.syncFailed.message',
     severity: 'medium'
   },
   [ERROR_CODES.CONFLICT_RESOLUTION_FAILED]: {
-    title: '資料衝突',
-    message: '發現資料衝突，已自動選擇最新的記錄。',
+    titleKey: 'errors.conflictResolution.title',
+    messageKey: 'errors.conflictResolution.message',
     severity: 'low'
   },
   [ERROR_CODES.RETRY_EXHAUSTED]: {
-    title: '重試次數已達上限',
-    message: '操作重試次數已達上限，請檢查網路連線後手動重試。',
+    titleKey: 'errors.retryExhausted.title',
+    messageKey: 'errors.retryExhausted.message',
     severity: 'high'
   },
   [ERROR_CODES.UNKNOWN_ERROR]: {
-    title: '未知錯誤',
-    message: '發生未預期的錯誤，請重新嘗試或聯繫技術支援。',
+    titleKey: 'errors.unknownError.title',
+    messageKey: 'errors.unknownError.message',
     severity: 'medium'
   },
   [ERROR_CODES.OPERATION_CANCELLED]: {
-    title: '操作已取消',
-    message: '操作已被使用者取消。',
+    titleKey: 'errors.operationCancelled.title',
+    messageKey: 'errors.operationCancelled.message',
     severity: 'low'
   }
+};
+
+// Helper function to get translated error messages
+const getErrorMessages = (code: string): { title: string; message: string; severity: ErrorInfo['severity'] } => {
+  const keys = ERROR_I18N_KEYS[code] || ERROR_I18N_KEYS[ERROR_CODES.UNKNOWN_ERROR];
+  return {
+    title: i18n.t(keys.titleKey),
+    message: i18n.t(keys.messageKey),
+    severity: keys.severity
+  };
 };
 
 class ErrorService {
@@ -200,27 +214,26 @@ class ErrorService {
       code = ERROR_CODES.UNKNOWN_ERROR;
     }
 
-    // 檢查是否為已知的錯誤代碼
+    // Check if it's a known error code
     if (Object.values(ERROR_CODES).includes(code as any)) {
-      const errorConfig = ERROR_MESSAGES[code];
-      if (errorConfig) {
-        return {
-          code,
-          message,
-          userMessage: errorConfig.message,
-          severity: errorConfig.severity,
-          retryable,
-          category,
-          timestamp: new Date(),
-          context
-        };
-      }
+      const errorConfig = getErrorMessages(code);
+      return {
+        code,
+        message,
+        userMessage: errorConfig.message,
+        severity: errorConfig.severity,
+        retryable,
+        category,
+        timestamp: new Date(),
+        context
+      };
     }
 
+    const defaultConfig = getErrorMessages(ERROR_CODES.UNKNOWN_ERROR);
     return {
       code,
       message,
-      userMessage: ERROR_MESSAGES[ERROR_CODES.UNKNOWN_ERROR].message,
+      userMessage: defaultConfig.message,
       severity: 'medium',
       retryable,
       category,
@@ -257,14 +270,14 @@ class ErrorService {
   }
 
   /**
-   * 創建使用者回饋訊息
+   * Create user feedback message
    */
   private createUserFeedback(errorInfo: ErrorInfo): UserFeedback {
-    const errorConfig = ERROR_MESSAGES[errorInfo.code] || ERROR_MESSAGES[ERROR_CODES.UNKNOWN_ERROR];
-    
+    const errorConfig = getErrorMessages(errorInfo.code);
+
     let type: UserFeedback['type'] = 'error';
     let duration = 5000; // 5 seconds default
-    
+
     switch (errorInfo.severity) {
       case 'low':
         type = 'warning';
@@ -292,13 +305,13 @@ class ErrorService {
       actionable: errorInfo.retryable
     };
 
-    // 為可重試的錯誤添加重試按鈕
+    // Add retry button for retryable errors
     if (errorInfo.retryable) {
       feedback.actions = [
         {
-          label: '重試',
+          label: i18n.t('common.retry'),
           action: () => {
-            // 這裡需要實作重試邏輯，通常由調用方提供
+            // Retry logic should be implemented by the caller
             console.log('Retry action triggered for error:', errorInfo.code);
           },
           primary: true

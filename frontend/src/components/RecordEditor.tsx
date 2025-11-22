@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Edit3, 
-  Save, 
-  X, 
-  Calendar, 
-  Clock, 
+import {
+  Edit3,
+  Save,
+  X,
+  Calendar,
+  Clock,
   Droplets,
   AlertCircle,
-  Loader2 
+  Loader2
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { HydrationRecord } from '../types';
 
 interface RecordEditorProps {
@@ -39,6 +40,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
   onSave,
   isLoading = false
 }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<FormData>({
     volume: '',
     date: '',
@@ -62,50 +64,50 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
 
   const validateForm = (): boolean => {
     const newErrors: ValidationErrors = {};
-    
+
     // Volume validation
     const volume = parseInt(formData.volume);
     if (isNaN(volume)) {
-      newErrors.volume = '請輸入有效的數字';
+      newErrors.volume = t('validation.invalidNumber');
     } else if (volume < 1 || volume > 5000) {
-      newErrors.volume = '容量必須介於 1ml 至 5000ml 之間';
+      newErrors.volume = t('validation.volumeRange');
     }
 
     // Date validation
     if (!formData.date) {
-      newErrors.date = '請選擇日期';
+      newErrors.date = t('validation.selectDate');
     } else {
       const selectedDate = new Date(formData.date);
       const today = new Date();
       today.setHours(23, 59, 59, 999); // End of today
-      
+
       if (selectedDate > today) {
-        newErrors.date = '不能選擇未來的日期';
+        newErrors.date = t('validation.futureDate');
       }
-      
+
       // Check if date is too far in the past (more than 1 year)
       const oneYearAgo = new Date();
       oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
       if (selectedDate < oneYearAgo) {
-        newErrors.date = '日期不能超過一年前';
+        newErrors.date = t('validation.dateLimit');
       }
     }
 
     // Time validation
     if (!formData.time) {
-      newErrors.time = '請選擇時間';
+      newErrors.time = t('validation.selectTime');
     } else {
       // If date is today, time cannot be in the future
       const selectedDate = new Date(formData.date);
       const today = new Date();
-      
+
       if (selectedDate.toDateString() === today.toDateString()) {
         const [hours, minutes] = formData.time.split(':').map(Number);
         const selectedDateTime = new Date(selectedDate);
         selectedDateTime.setHours(hours, minutes, 0, 0);
-        
+
         if (selectedDateTime > today) {
-          newErrors.time = '時間不能是未來時間';
+          newErrors.time = t('validation.futureTime');
         }
       }
     }
@@ -222,8 +224,8 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
                   <Edit3 className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900">編輯記錄</h2>
-                  <p className="text-sm text-gray-500">修改飲水記錄的容量和時間</p>
+                  <h2 className="text-xl font-semibold text-gray-900">{t('recordEditor.title')}</h2>
+                  <p className="text-sm text-gray-500">{t('recordEditor.subtitle')}</p>
                 </div>
               </div>
               <button
@@ -241,7 +243,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <Droplets className="w-4 h-4 text-blue-500" />
-                  容量 (ml)
+                  {t('recordEditor.volumeLabel')}
                 </label>
                 <motion.input
                   type="number"
@@ -258,7 +260,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
                       : 'border-gray-300 bg-white hover:border-gray-400'
                     }
                   `}
-                  placeholder="輸入容量 (1-5000ml)"
+                  placeholder={t('quickInput.placeholder')}
                   variants={inputVariants}
                   whileFocus="focus"
                 />
@@ -281,7 +283,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <Calendar className="w-4 h-4 text-green-500" />
-                  日期
+                  {t('recordEditor.dateLabel')}
                 </label>
                 <motion.input
                   type="date"
@@ -319,7 +321,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <Clock className="w-4 h-4 text-purple-500" />
-                  時間
+                  {t('recordEditor.timeLabel')}
                 </label>
                 <motion.input
                   type="time"
@@ -362,9 +364,9 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
                   whileHover={!isSaving ? { scale: 1.02 } : {}}
                   whileTap={!isSaving ? { scale: 0.98 } : {}}
                 >
-                  取消
+                  {t('common.cancel')}
                 </motion.button>
-                
+
                 <motion.button
                   type="submit"
                   disabled={isSaving || isLoading}
@@ -382,12 +384,12 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
                   {isSaving || isLoading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      儲存中...
+                      {t('recordEditor.saving')}
                     </>
                   ) : (
                     <>
                       <Save className="w-4 h-4" />
-                      儲存
+                      {t('common.save')}
                     </>
                   )}
                 </motion.button>
@@ -398,7 +400,7 @@ const RecordEditor: React.FC<RecordEditorProps> = ({
             <div className="px-6 pb-6">
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                 <p className="text-sm text-blue-800">
-                  💡 <strong>提示：</strong>修改記錄後，水桶進度會自動重新計算並更新顯示
+                  {t('recordEditor.tip')}
                 </p>
               </div>
             </div>

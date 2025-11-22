@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "language": "en",
+    "languageName": "English",
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-01"
+  },
+  "common": {
+    "appName": "FillUp!",
+    "appSlogan": "Fill up with water",
+    "online": "Online",
+    "offline": "Offline",
+    "pendingSync": "Pending sync: {{count}}",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "retry": "Retry",
+    "confirm": "Confirm",
+    "close": "Close",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "ml": "ml",
+    "volume": "Volume",
+    "time": "Time",
+    "date": "Date"
+  },
+  "header": {
+    "networkStatus": {
+      "online": "Online",
+      "offline": "Offline"
+    }
+  },
+  "home": {
+    "todayProgress": "Today's Progress",
+    "completionRate": "Completion Rate",
+    "remaining": "Remaining",
+    "todayDrank": "Drank Today",
+    "dailyGoal": "Daily Goal",
+    "recordSuccess": "Record saved!",
+    "goalReached": {
+      "title": "Congratulations!",
+      "message": "You've reached today's hydration goal. Keep up the healthy habit!"
+    },
+    "todayRecords": "Today's Records",
+    "recordCount": "{{count}} records",
+    "partiallyUnsynced": "Partially unsynced",
+    "noRecords": {
+      "title": "No records today",
+      "message": "Start recording your water intake!"
+    },
+    "settingsHint": "Click settings to adjust daily goal"
+  },
+  "quickInput": {
+    "title": "Quick Record",
+    "customVolume": "Custom Volume",
+    "placeholder": "Enter volume (1-5000ml)",
+    "record": "Record",
+    "tip": "Tip: A regular cup is about 250ml, a thermos about 350ml, a large bottle about 500ml"
+  },
+  "recordEditor": {
+    "title": "Edit Record",
+    "subtitle": "Modify hydration record volume and time",
+    "volumeLabel": "Volume (ml)",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "saving": "Saving...",
+    "tip": "Tip: After editing, the bucket progress will automatically recalculate and update"
+  },
+  "recordList": {
+    "noRecords": {
+      "title": "No records",
+      "message": "Start recording your water intake!"
+    },
+    "waitingSync": "Waiting to sync to cloud",
+    "deleteConfirm": {
+      "title": "Confirm Delete",
+      "subtitle": "This action cannot be undone",
+      "message": "Are you sure you want to delete this {{volume}} record?",
+      "deleting": "Deleting..."
+    }
+  },
+  "bucket": {
+    "goalAchieved": "Goal Achieved!",
+    "target": "Target: {{amount}}ml",
+    "todayGoalAchieved": "Today's goal achieved!"
+  },
+  "validation": {
+    "invalidNumber": "Please enter a valid number",
+    "volumeRange": "Volume must be between 1ml and 5000ml",
+    "selectDate": "Please select a date",
+    "futureDate": "Cannot select a future date",
+    "dateLimit": "Date cannot be more than one year ago",
+    "selectTime": "Please select a time",
+    "futureTime": "Time cannot be in the future"
+  },
+  "errors": {
+    "networkUnavailable": {
+      "title": "Network Issue",
+      "message": "Unable to connect to the network. Your records will be stored locally and synced automatically when the network is restored."
+    },
+    "networkTimeout": {
+      "title": "Connection Timeout",
+      "message": "Network response took too long. Please check your network connection."
+    },
+    "serverError": {
+      "title": "Server Error",
+      "message": "The server is temporarily unable to process your request. Please try again later."
+    },
+    "apiError": {
+      "title": "Service Error",
+      "message": "Service temporarily unavailable. Your data has been safely stored locally."
+    },
+    "invalidVolume": {
+      "title": "Input Error",
+      "message": "Please enter a valid water volume (1-5000ml)."
+    },
+    "invalidTimestamp": {
+      "title": "Time Error",
+      "message": "Please select a valid time."
+    },
+    "validationFailed": {
+      "title": "Validation Failed",
+      "message": "The input data format is incorrect. Please check and re-enter."
+    },
+    "storageFull": {
+      "title": "Storage Full",
+      "message": "Local storage is full. Please clear some old data or contact technical support."
+    },
+    "storageError": {
+      "title": "Storage Error",
+      "message": "Unable to save data locally. Please try again."
+    },
+    "indexedDBError": {
+      "title": "Local Database Error",
+      "message": "There was a problem with the local database. You may need to refresh the page."
+    },
+    "syncFailed": {
+      "title": "Sync Failed",
+      "message": "Unable to sync your data. Will automatically retry when network is restored."
+    },
+    "conflictResolution": {
+      "title": "Data Conflict",
+      "message": "Data conflict detected. The most recent record has been automatically selected."
+    },
+    "retryExhausted": {
+      "title": "Retry Limit Reached",
+      "message": "Maximum retry attempts reached. Please check your network connection and try again manually."
+    },
+    "unknownError": {
+      "title": "Unknown Error",
+      "message": "An unexpected error occurred. Please try again or contact technical support."
+    },
+    "operationCancelled": {
+      "title": "Operation Cancelled",
+      "message": "The operation has been cancelled by the user."
+    }
+  }
+}

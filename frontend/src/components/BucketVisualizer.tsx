@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface BucketVisualizerProps {
   currentAmount: number;
@@ -13,6 +14,7 @@ const BucketVisualizer: React.FC<BucketVisualizerProps> = React.memo(({
   dailyGoal,
   onAnimationComplete
 }) => {
+  const { t, i18n } = useTranslation();
   const percentage = Math.min((currentAmount / dailyGoal) * 100, 100);
   const [showCelebration, setShowCelebration] = useState(false);
   const [previousPercentage, setPreviousPercentage] = useState(0);
@@ -153,7 +155,7 @@ const BucketVisualizer: React.FC<BucketVisualizerProps> = React.memo(({
             style={{ willChange: 'transform, opacity' }}
           >
             <div className="bg-yellow-400 text-yellow-900 px-6 py-3 rounded-full font-bold text-lg shadow-lg transform-gpu">
-              🎉 目標達成！ 🎉
+              🎉 {t('bucket.goalAchieved')} 🎉
             </div>
           </motion.div>
         )}
@@ -297,14 +299,14 @@ const BucketVisualizer: React.FC<BucketVisualizerProps> = React.memo(({
         transition={{ delay: 0.5, duration: 0.5 }}
       >
         <p className="text-lg font-semibold text-gray-800">
-          {currentAmount.toLocaleString()}ml
+          {currentAmount.toLocaleString(i18n.language)}ml
         </p>
         <p className="text-sm text-gray-600">
-          目標: {dailyGoal.toLocaleString()}ml
+          {t('bucket.target', { amount: dailyGoal.toLocaleString(i18n.language) })}
         </p>
         {percentage >= 100 && (
           <p className="text-sm text-green-600 font-medium mt-1">
-            ✅ 今日目標已達成！
+            {t('bucket.todayGoalAchieved')}
           </p>
         )}
       </motion.div>

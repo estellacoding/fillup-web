@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Edit3, 
-  Trash2, 
-  Clock, 
+import {
+  Edit3,
+  Trash2,
+  Clock,
   Droplets,
   Calendar,
   MoreVertical,
   AlertTriangle
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { HydrationRecord } from '../types';
 import { formatTime, formatDate } from '../utils/time';
 import { formatVolume } from '../utils/format';
@@ -36,6 +37,7 @@ const RecordItem: React.FC<RecordItemProps> = ({
   showDate = false,
   isDeleting = false
 }) => {
+  const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -124,7 +126,7 @@ const RecordItem: React.FC<RecordItemProps> = ({
               <p className="font-semibold text-gray-900">
                 {formatVolume(record.volume)}
               </p>
-              <p className="text-xs text-gray-500">容量</p>
+              <p className="text-xs text-gray-500">{t('common.volume')}</p>
             </div>
           </div>
 
@@ -137,7 +139,7 @@ const RecordItem: React.FC<RecordItemProps> = ({
               <p className="font-medium text-gray-900">
                 {formatTime(record.timestamp)}
               </p>
-              <p className="text-xs text-gray-500">時間</p>
+              <p className="text-xs text-gray-500">{t('common.time')}</p>
             </div>
           </div>
 
@@ -151,7 +153,7 @@ const RecordItem: React.FC<RecordItemProps> = ({
                 <p className="font-medium text-gray-900">
                   {formatDate(record.timestamp)}
                 </p>
-                <p className="text-xs text-gray-500">日期</p>
+                <p className="text-xs text-gray-500">{t('common.date')}</p>
               </div>
             </div>
           )}
@@ -183,14 +185,14 @@ const RecordItem: React.FC<RecordItemProps> = ({
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   <Edit3 className="w-4 h-4 text-blue-500" />
-                  編輯
+                  {t('common.edit')}
                 </button>
                 <button
                   onClick={handleDeleteClick}
                   className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
-                  刪除
+                  {t('common.delete')}
                 </button>
               </motion.div>
             )}
@@ -202,7 +204,7 @@ const RecordItem: React.FC<RecordItemProps> = ({
       {!record.synced && (
         <div className="mt-3 flex items-center gap-2 text-xs text-orange-600 bg-orange-50 px-3 py-2 rounded-lg">
           <AlertTriangle className="w-3 h-3" />
-          等待同步到雲端
+          {t('recordList.waitingSync')}
         </div>
       )}
 
@@ -228,28 +230,28 @@ const RecordItem: React.FC<RecordItemProps> = ({
                   <AlertTriangle className="w-5 h-5 text-red-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">確認刪除</h3>
-                  <p className="text-sm text-gray-500">此操作無法復原</p>
+                  <h3 className="font-semibold text-gray-900">{t('recordList.deleteConfirm.title')}</h3>
+                  <p className="text-sm text-gray-500">{t('recordList.deleteConfirm.subtitle')}</p>
                 </div>
               </div>
-              
+
               <p className="text-gray-700 mb-6">
-                確定要刪除這筆 {formatVolume(record.volume)} 的記錄嗎？
+                {t('recordList.deleteConfirm.message', { volume: formatVolume(record.volume) })}
               </p>
-              
+
               <div className="flex gap-3">
                 <button
                   onClick={handleDeleteCancel}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  取消
+                  {t('common.cancel')}
                 </button>
                 <button
                   onClick={handleDeleteConfirm}
                   disabled={isDeleting}
                   className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
                 >
-                  {isDeleting ? '刪除中...' : '刪除'}
+                  {isDeleting ? t('recordList.deleteConfirm.deleting') : t('common.delete')}
                 </button>
               </div>
             </motion.div>
@@ -275,6 +277,7 @@ const RecordList: React.FC<RecordListProps> = ({
   isLoading = false,
   showDate = false
 }) => {
+  const { t } = useTranslation();
   const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
 
   const handleDelete = async (id: string) => {
@@ -317,8 +320,8 @@ const RecordList: React.FC<RecordListProps> = ({
         <div className="p-4 bg-gray-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
           <Droplets className="w-8 h-8 text-gray-400" />
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">尚無記錄</h3>
-        <p className="text-gray-500">開始記錄您的飲水量吧！</p>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">{t('recordList.noRecords.title')}</h3>
+        <p className="text-gray-500">{t('recordList.noRecords.message')}</p>
       </motion.div>
     );
   }
@@ -351,7 +354,7 @@ const RecordList: React.FC<RecordListProps> = ({
         >
           <div className="inline-flex items-center gap-2 text-gray-500">
             <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
-            載入中...
+            {t('common.loading')}
           </div>
         </motion.div>
       )}
