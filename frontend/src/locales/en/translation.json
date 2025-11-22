@@ -3,7 +3,7 @@
     "language": "en",
     "languageName": "English",
     "version": "1.0.0",
-    "lastUpdated": "2025-01-01"
+    "lastUpdated": "2025-11-22"
   },
   "common": {
     "appName": "FillUp!",
@@ -154,7 +154,7 @@
     },
     "operationCancelled": {
       "title": "Operation Cancelled",
-      "message": "The operation has been cancelled by the user."
+      "message": ""
     }
   }
 }

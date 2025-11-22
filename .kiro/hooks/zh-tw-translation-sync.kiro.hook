@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "Traditional Chinese Translation Sync",
+  "description": "When Traditional Chinese locale file is updated, this hook identifies added or modified string keys, checks all other language files for these keys, automatically translates missing keys from source to target languages, updates modified translations, and generates a summary of changes across all languages",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "frontend/src/locales/zh-TW/translation.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A Traditional Chinese locale file has been updated. Please perform the following tasks:\n\n1. **Identify Changes**: Compare the updated zh-TW/translation.json with its previous version to identify which string keys were added or modified.\n\n2. **Check Other Locale Files**: Examine all other language files in frontend/src/locales/ (en/translation.json, zh-CN/translation.json) for these keys.\n\n3. **Translate Missing Keys**: For any keys that exist in zh-TW but are missing in other language files:\n   - Translate from Traditional Chinese to the target language (English for en/, Simplified Chinese for zh-CN/)\n   - Add the translated keys to the respective files\n   - Maintain the same JSON structure and formatting\n\n4. **Update Modified Keys**: For keys that were modified in zh-TW and already exist in other languages:\n   - Update the translations in other language files to match the modified source text\n   - Ensure semantic consistency across all translations\n\n5. **Generate Summary**: Create a comprehensive summary including:\n   - List of added keys with translations for each language\n   - List of modified keys with before/after translations\n   - Total count of changes per language file\n   - Any keys that might need manual review due to context or complexity\n\nPlease ensure all JSON files remain valid and properly formatted after updates."
+  },
+  "workspaceFolderName": "fillup-web",
+  "shortName": "zh-tw-translation-sync"
+}
